@@ -1,0 +1,137 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090c">
+  <title>AuthNow - Verificação do Produto</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow: hidden;
+      background: #08090c;
+      position: relative;
+    }
+
+    /* Fundo escuro parecido com a câmera */
+    .fundo-camera {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(
+          ellipse at 50% 38%,
+          rgba(105, 105, 115, 0.65),
+          rgba(45, 44, 50, 0.55) 30%,
+          transparent 65%
+        ),
+        linear-gradient(145deg, #292629, #08090c 75%);
+    }
+
+    /* Ícones decorativos no topo */
+    .controles-camera {
+      position: fixed;
+      top: 18px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: space-between;
+      color: #777;
+      font-size: 22px;
+      z-index: 1;
+    }
+
+    /* Popup do anúncio */
+    .popup-container {
+      position: fixed;
+      left: 50%;
+      bottom: max(10px, env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      width: calc(100% - 16px);
+      max-width: 420px;
+      z-index: 2;
+    }
+
+    .popup {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 25px;
+      background: #f7f6f4;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* A arte original, sem redesenhar os logotipos */
+    .popup-imagem {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Área clicável sobre o botão Abrir da imagem */
+    .botao-abrir {
+      position: absolute;
+      left: 67%;
+      top: 68%;
+      width: 28%;
+      height: 12%;
+      border-radius: 50px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .botao-abrir:focus-visible {
+      outline: 3px solid #1680ff;
+      outline-offset: 3px;
+    }
+
+    @media (min-width: 600px) {
+      .popup-container {
+        width: min(390px, calc(100% - 32px));
+        bottom: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fundo-camera"></div>
+
+  <div class="controles-camera" aria-hidden="true">
+    <span>×</span>
+    <span>⌃</span>
+    <span>◎</span>
+  </div>
+
+  <main class="popup-container">
+    <section class="popup">
+      <img
+        class="popup-imagem"
+        src="popup-authnow.jpg"
+        alt="AuthNow — Valida la autenticidad de tu producto"
+      >
+
+      <a
+        class="botao-abrir"
+        href="inicio.html"
+        aria-label="Abrir página inicial"
+      ></a>
+    </section>
+  </main>
+</body>
+</html>

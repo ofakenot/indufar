@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Verificação de autenticidade | INDUFAR</title>
+  <style>
+    :root {
+      --fundo: #edf4f6; --branco: #fff; --marrom: #683018;
+      --oliva: #a58b08; --verde: #08772c; --vermelho: #b42318;
+      --texto: #111;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body { font-family: Arial, Helvetica, sans-serif; color: var(--texto); background: var(--fundo); }
+    .cabecalho { min-height: 190px; background: var(--branco); text-align: center; padding: 24px 18px 22px; position: relative; }
+    .logo { display: block; width: 135px; height: 84px; object-fit: contain; margin: 0 auto 14px; }
+    .idioma { position: absolute; top: 28px; right: 16px; border: 2px solid #292929; border-radius: 28px; padding: 9px 13px; font-size: 15px; background: #fff; }
+    .cabecalho h1 { margin: 0; font-size: 23px; font-weight: 700; }
+    .faixa-status { min-height: 116px; padding: 18px 22px; display: flex; align-items: center; gap: 14px; background: #fff; border-bottom: 1px solid #e7ecee; }
+    .selo { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: #244b91; color: #fff; font-size: 38px; border: 3px solid #244b91; }
+    .status-conteudo { min-width: 0; flex: 1; }
+    .status { font-size: clamp(21px, 5.5vw, 29px); line-height: 1.1; font-weight: 800; color: var(--oliva); margin-bottom: 10px; }
+    .status.valido { color: var(--verde); } .status.invalido { color: var(--vermelho); } .status.verificando { color: #8a6500; }
+    .codigo { font-size: clamp(17px, 4.8vw, 23px); line-height: 1.25; font-weight: 800; overflow-wrap: anywhere; }
+    .seta { flex: 0 0 auto; font-size: 42px; line-height: 1; color: #111; margin-left: 2px; }
+    main { background: var(--fundo); padding: 24px 22px 36px; min-height: 55vh; }
+    .imagem-produto { display: block; width: 100%; max-width: 520px; max-height: 420px; object-fit: contain; margin: 0 auto 24px; }
+    .descricao { max-width: 720px; margin: 0 auto; font-size: 17px; line-height: 1.5; }
+    .dosagem { max-width: 720px; margin: 15px auto 0; font-size: 16px; color: #444; }
+    .mensagem { max-width: 720px; margin: 24px auto 0; padding: 14px 16px; border-radius: 8px; background: rgba(255,255,255,.88); font-size: 14px; line-height: 1.5; }
+    .continuar { display:block; width:100%; max-width:720px; margin:18px auto 0; padding:15px; border:0; border-radius:9px; color:white; background:#1558d6; font-size:16px; font-weight:bold; }
+    .icones { display: flex; justify-content: center; gap: 70px; margin: 35px auto 0; }
+    .icone-rodape { width: 68px; height: 68px; display: grid; place-items: center; border-radius: 50%; background: var(--oliva); color: #fff; border: 3px solid rgba(255,255,255,.75); font-size: 30px; }
+    footer { background: var(--fundo); padding: 0 20px 28px; text-align: center; font-size: 12px; color: #596166; }
+    @media (min-width:700px) { .cabecalho { min-height: 220px; } .faixa-status { padding-left:max(22px,calc((100% - 720px)/2)); padding-right:max(22px,calc((100% - 720px)/2)); } main { padding-top:32px; } .imagem-produto { max-height:460px; } }
+.selo img {
+  display: block;
+  
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+  </style>
+</head>
+<body>
+  <header class="cabecalho">
+
+  
+    <span class="idioma" aria-label="Idioma português">POR ⌄</span>
+    <img class="logo" src="assets/indufar-logo.png" alt="INDUFAR">
+    <h1>T.G. 15 mg</h1>
+  </header>
+
+  <section class="faixa-status" aria-live="polite">
+    <div class="selo" id="selo">
+  <img src="assets/authnow-minilogo.jpg" alt="AuthNow">
+</div>
+    <div class="status-conteudo">
+      <div class="status verificando" id="status">VERIFICANDO...</div>
+      <div class="codigo">CÓDIGO: <span id="codigo">—</span></div>
+    </div>
+    <span class="seta" aria-hidden="true">›</span>
+  </section>
+
+  <main>
+    <img class="imagem-produto" src="assets/tg-15mg.png" alt="Embalagem T.G. 15 mg — Tirzepatida 15 mg/0,5 mL">
+    <p class="descricao">O código alfanumérico acima deve corresponder em código e cor ao que está impresso no rótulo do produto para verificar sua autenticidade.</p>
+    <p class="dosagem">15 mg</p>
+    <div class="mensagem" id="mensagem">Verificando código...</div>
+    <button class="continuar" id="continuar" type="button" hidden>Continuar</button>
+    <div class="icones" aria-hidden="true"><div class="icone-rodape">▣</div><div class="icone-rodape">▤</div></div>
+  </main>
+  <footer>INDUFAR</footer>
+
+  <script>
+    /*
+      CÓDIGO DE TESTE DO QR GERADO:
+      TG15-8F3A-7K9D-2L6M
+
+      Esta comparação no navegador NÃO é uma validação segura de autenticidade.
+      Para produção, valide no servidor e não exponha códigos secretos no HTML.
+    */
+    const CODIGOS_DE_TESTE_VALIDOS = new Set(["TG15-8F3A-7K9D-2L6M"]);
+    const params = new URLSearchParams(window.location.search);
+    const codigo = (params.get("codigo") || "").trim();
+    const statusEl = document.getElementById("status");
+    const codigoEl = document.getElementById("codigo");
+    const mensagemEl = document.getElementById("mensagem");
+    const seloEl = document.getElementById("selo");
+    const continuarEl = document.getElementById("continuar");
+
+    codigoEl.textContent = codigo === "TG15-8F3A-7K9D-2L6M"
+  ? "aPYYGu1ho4"
+  : (codigo || "Não informado");
+
+    function definirResultado(tipo, titulo, texto, simbolo) {
+      statusEl.className = "status " + tipo;
+      statusEl.textContent = titulo;
+      mensagemEl.textContent = texto;
+      seloEl.innerHTML = '<img src="assets/authnow-minilogo.jpg" alt="AuthNow">';
+      seloEl.style.background = tipo === "valido" ? "#16a34a" : (tipo === "invalido" ? "#dc2626" : "#a16207");
+      continuarEl.hidden = tipo !== "valido";
+    }
+
+    function validarCodigo() {
+      if (!codigo || codigo.length > 200) {
+        definirResultado("invalido", "CÓDIGO INVÁLIDO",
+          "Não foi fornecido um código válido para consulta.", "×");
+        return;
+      }
+
+      const normalizado = codigo.toUpperCase();
+      if (CODIGOS_DE_TESTE_VALIDOS.has(normalizado)) {
+        definirResultado("valido", "AUTÊNTICO",
+          "Código reconhecido pelo sistema.", "✓");
+      } else {
+        definirResultado("invalido", "CÓDIGO INVÁLIDO",
+          "Este código não foi reconhecido. Não foi possível confirmar a autenticidade deste produto.", "×");
+      }
+    }
+
+    continuarEl.addEventListener("click", function () {
+      window.location.href = "/";
+    });
+
+    validarCodigo();
+  </script>
+</body>
+</html>
